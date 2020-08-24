@@ -1,4 +1,8 @@
+sudo apt install unzip
 sudo snap install docker
 
-########## Installing blob storage connections ##########
-wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
+mkdir -p airflow-materials
+unzip /home/evanmiller/airflow-materials.zip
+
+cd airflow-materials/airflow-section-3
+sudo sh start.sh
