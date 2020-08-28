@@ -2,6 +2,8 @@ from airflow import DAG
 from datetime import datetime, timedelta
 from airflow.sensors.http_sensor import HttpSensor
 from airflow.contrib.sensors.file_sensor import FileSensor
+from airflow.contrib.operators.spark_submit_operator import SparkSubmitOperator
+
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.hive_operator import HiveOperator
@@ -94,4 +96,11 @@ with DAG(
             FIELDS TERMINATED BY ','
             STORED AS TEXTFILE
     """       
+    )
+    
+    forex_processing = SparkSubmitOperator(
+        task_id="forex_processing",
+        conn_id="spark_conn",
+        application="/usr/local/airflow/dags/scripts/forex_processing.py",
+        verbose=False
     )
